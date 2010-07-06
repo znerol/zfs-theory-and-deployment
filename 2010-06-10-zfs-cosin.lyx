@@ -369,7 +369,7 @@ Mindestens 3 Disks, Toleriert 1 Ausfall
 \end_layout
 
 \begin_layout Itemize
-Performance leidet beim Random-Schreiben (Partial Strip Write)
+Performance leidet beim Random-Schreiben (Partial Stripe Write)
 \end_layout
 
 \begin_layout Itemize
@@ -424,7 +424,7 @@ Bei Hardware RAID Systemen kommt NVRAM und Backup Batterie zum Einsatz.
 \end_layout
 
 \begin_layout BeginFrame
-RAID 5: Partial Strip Write
+RAID 5: Partial Stripe Write
 \end_layout
 
 \begin_layout Itemize
@@ -592,7 +592,7 @@ Nachteil: Die RAID-Logik muss diese Daten aus dem Filesystem (DPM, Schicht
 \end_layout
 
 \begin_layout Itemize
-Vorteil: Keine Performance-Einbusse wegen RAID 5 partial strip writes
+Vorteil: Keine Performance-Einbusse wegen RAID 5 partial stripe writes
 \end_layout
 
 \begin_layout Itemize
@@ -996,7 +996,7 @@ target "http://blogs.sun.com/bonwick/entry/raid_z"
 \end_layout
 
 \begin_layout Itemize
-Sun BigAdmin ZFS Overwiev and Guide
+Sun BigAdmin ZFS Overview and Guide
 \begin_inset Newline newline
 \end_inset
 
@@ -1018,6 +1018,21 @@ target "http://www.sun.com/bigadmin/features/articles/zfs_overview.jsp"
 
 \begin_layout BeginFrame
 More Links
+\end_layout
+
+\begin_layout Itemize
+Opensolaris Hub, ZFS Resources
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://hub.opensolaris.org/bin/view/Community+Group+zfs/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
