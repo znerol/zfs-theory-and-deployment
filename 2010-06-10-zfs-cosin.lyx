@@ -1,0 +1,1079 @@
+#LyX 1.6.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+\usetheme{Berlin}
+% oder ...
+
+\setbeamercovered{transparent}
+% oder auch nicht
+
+\usepackage{graphics}
+\end_preamble
+\use_default_options true
+\language ngerman
+\inputencoding auto
+\font_roman palatino
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_amsmath 0
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\defskip medskip
+\quotes_language french
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+ZFS Theory and Deployment 
+\end_layout
+
+\begin_layout Author
+Lorenz Schori und Mathieu Simon
+\end_layout
+
+\begin_layout Date
+Cosin, 10.
+ Juni 2010
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+AtBeginSubsection[]{
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+frame<beamer>{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+frametitle{Gliederung}   
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+tableofcontents[currentsection,currentsubsection] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+beamerdefaultoverlayspecification{<+->}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Mein Hintergrund
+\end_layout
+
+\begin_layout Itemize
+Teilzeitstudium an der BFH in Biel
+\end_layout
+
+\begin_layout Itemize
+Arbeit für eine Zeitungen als System-Administrator und Supporter
+\end_layout
+
+\begin_layout Itemize
+Entwickeln und verbessern von FLOSS for fun and profit
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Section
+Einführung
+\end_layout
+
+\begin_layout Subsection
+Von FAT bis NTFS
+\end_layout
+
+\begin_layout BeginFrame
+FAT - File Allocation Table
+\end_layout
+
+\begin_layout Itemize
+FAT-12: 12 Bit Addressing, mit 8KB cluster max 32MB.
+ Ausreichend für Floppy Disks, keine Verzeichnisstruktur
+\end_layout
+
+\begin_layout Itemize
+1987 FAT-16: mit 32KB cluster max 2GB
+\end_layout
+
+\begin_layout Itemize
+1995 FAT-32: cluster zwischen 4KB und 32KB.
+ VFAT: Workarond für lange Dateinamen
+\end_layout
+
+\begin_layout Itemize
+Probleme: Fragmentierung, File Allocation Table, Ineffiziente Nutzung des
+ Speichers
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+NTFS
+\end_layout
+
+\begin_layout Itemize
+1993: Erster Release Windows NT (3.1)
+\end_layout
+
+\begin_layout Itemize
+64-Bit Filesystem (max Volumegrösse 16 Exabytes), 4KB Cluster
+\end_layout
+
+\begin_layout Itemize
+Unicode, Journaling, Extended Attributes, Access Control Lists
+\end_layout
+
+\begin_layout Itemize
+NTFS 3.0 (W2K): Indexed metadata search, disk encryption, quotas
+\end_layout
+
+\begin_layout Itemize
+Fragmentierung ist kaum ein Problem (höchstens bei MFT), weil Blöcke intelligent
+er alloziert werden
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Was will man mehr?
+\end_layout
+
+\begin_layout Block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+Was will man mehr als NTFS?
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Subsection
+Festplatten im Verbund
+\end_layout
+
+\begin_layout BeginFrame
+RAID
+\end_layout
+
+\begin_layout Block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{RAID}
+\end_layout
+
+\end_inset
+
+ Reduntant Array of I* Disks
+\begin_inset Newline newline
+\end_inset
+
+Beliebte Konfigurationen: (0,) 1, 5, 10
+\end_layout
+
+\begin_layout BeginFrame
+RAID 0: Geschwindigkeit
+\end_layout
+
+\begin_layout Itemize
+Striping, keine Parität, keine Redundanz (also kein RAID)
+\end_layout
+
+\begin_layout Itemize
+Maximaler Durchsatz bei sequenziellem Lesen-/Schreiben
+\end_layout
+
+\begin_layout Itemize
+Ausfall einer Festplatte führt zur Katastrophe!
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+RAID 1: Datensicherheit
+\end_layout
+
+\begin_layout Itemize
+Kein Striping, keine Parität, Redundanz durch Spiegelung der Daten
+\end_layout
+
+\begin_layout Itemize
+Leicht reduzierte Schreibgeschwindigkeit
+\end_layout
+
+\begin_layout Itemize
+Toleriert n-1 Ausfälle von Festplatten im Verbund
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+RAID 10: Kombination
+\end_layout
+
+\begin_layout Itemize
+Striping, keine Parität, Redundanz durch Spiegelung der Daten
+\end_layout
+
+\begin_layout Itemize
+Normalerweise 4 Disks: 1 x RAID 0 auf der Basis von N x RAID 1
+\end_layout
+
+\begin_layout Itemize
+Linux MD RAID 10 operiert auch mit 2 Disks
+\end_layout
+
+\begin_layout Itemize
+Datensicherheit und guter Durchsatz
+\end_layout
+
+\begin_layout Itemize
+Toleriert Ausfälle solange alle Mirrors noch funktionieren
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+RAID 5: Kompromiss
+\end_layout
+
+\begin_layout Itemize
+Striping, Redundanz durch Parität
+\end_layout
+
+\begin_layout Itemize
+Mindestens 3 Disks, Toleriert 1 Ausfall
+\end_layout
+
+\begin_layout Itemize
+Performance leidet beim Random-Schreiben (Partial Strip Write)
+\end_layout
+
+\begin_layout Itemize
+Datenverlust bei Systemausfall (Write Hole)
+\end_layout
+
+\begin_layout Itemize
+Performance-Einbusse nach Ausfall einer Festplatte:
+\begin_inset Newline newline
+\end_inset
+
+Berechnung der Daten mittels Parität beim Lesezugriff
+\end_layout
+
+\begin_layout Itemize
+Kapazität = 
+\begin_inset Formula $(n-1)*K_{HD}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+RAID 5: Write Hole
+\end_layout
+
+\begin_layout Itemize
+Bei jedem Schreibvorgang werden Daten- und ein Paritätsblock auf der Festplatte
+ 
+\begin_inset Quotes fld
+\end_inset
+
+ersetzt
+\begin_inset Quotes frd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Bei einem Fehler (Ausfall) zwischen diesen beiden Operationen stimmt die
+ Parität nicht mehr mit den Daten überein
+\end_layout
+
+\begin_layout Itemize
+Bei Hardware RAID Systemen kommt NVRAM und Backup Batterie zum Einsatz.
+ Das funktioniert ist aber teuer
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+RAID 5: Partial Strip Write
+\end_layout
+
+\begin_layout Itemize
+Eine Modifikation innerhalb einem Stripe beteutet:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Lesen des Datenblocks und der zegehörigen Parität
+\end_layout
+
+\begin_layout Itemize
+Parität berechnen von Original mit angewendeten Modifikationen
+\end_layout
+
+\begin_layout Itemize
+Modifizierter Block und neue Parität auf die Festplatte schreiben
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Dieser Mechanismus führt zu massiven Performance-Einbussen bei Random-Writes
+ (Datenbanken).
+\end_layout
+
+\begin_layout BeginFrame
+RAID 5: Performance nach Ausfall
+\end_layout
+
+\begin_layout Itemize
+Nach dem Ausfall eines Laufwerks lösen Lesezugriffe Paritätsberechnungen
+ aus
+\end_layout
+
+\begin_layout Itemize
+Dies führt zu höherer Festplattenaktivität und erhöht das Risiko eines weiteren
+ Ausfalls!
+\end_layout
+
+\begin_layout Itemize
+Ein Rebuild unter Last erhöht dieses Risiko weiter
+\end_layout
+
+\begin_layout BeginFrame
+Fazit
+\end_layout
+
+\begin_layout Block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+Safety, performance, cost effectiveness - pick any two of them
+\end_layout
+
+\begin_layout BeginFrame
+Partitionen vs.
+ Volumes
+\end_layout
+
+\begin_layout Itemize
+Früher wurde Partitioniert um die Filesysteme zu zämen (vgl.
+ FAT cluster size)
+\end_layout
+
+\begin_layout Itemize
+Heute gibt nur noch wenige Gründe für klassische Partitionen
+\end_layout
+
+\begin_layout Itemize
+Logical Volume Management für flexible VM und Storage Lösungen
+\end_layout
+
+\begin_layout Section
+ZFS - Zettabyte File System
+\end_layout
+
+\begin_layout Subsection
+Begriffe
+\end_layout
+
+\begin_layout BeginFrame
+3 Schichten
+\end_layout
+
+\begin_layout Itemize
+Schicht 1: SPA (Storage Pool Allocator): 
+\begin_inset Quotes fld
+\end_inset
+
+zpool
+\begin_inset Quotes frd
+\end_inset
+
+ RAID und Volume Management, Kompression, Deduplizierung
+\end_layout
+
+\begin_layout Itemize
+Schicht 2: DPM (Data Management Unit): Transactional object store
+\end_layout
+
+\begin_layout Itemize
+Schicht 3: ZPL (ZFS Posix Layer): Mapping von Dateinamen/Atttributen
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Schicht 1: ZFS Pools
+\end_layout
+
+\begin_layout Itemize
+Redundanz: mirror, raidz, raidz2, raidz3
+\end_layout
+
+\begin_layout Itemize
+Kompression und Deduplizierung
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Copy-On-Write
+\end_layout
+
+\begin_layout Itemize
+Geschrieben wird ausschliesslich in freie Blocks, allozierte Blocks werden
+ nie geändert
+\end_layout
+
+\begin_layout Itemize
+Mehrerer Operationen werden in Transaktionen zusammengefasst und im Intent-Log
+ gespeichert
+\end_layout
+
+\begin_layout Itemize
+Copy-on-write ist die Lösung für das RAID 5 write hole
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Dynamische Stripe-Grösse
+\end_layout
+
+\begin_layout Itemize
+Die Grösse der Stripes ist variabel (1 Block = 1 Stripe)
+\end_layout
+
+\begin_layout Itemize
+Nachteil: Die RAID-Logik muss diese Daten aus dem Filesystem (DPM, Schicht
+ 2) lesen
+\end_layout
+
+\begin_layout Itemize
+Vorteil: Keine Performance-Einbusse wegen RAID 5 partial strip writes
+\end_layout
+
+\begin_layout Itemize
+Ausserdem: Die RAID-Logik weiss wo die benutzten Blöcke liegen und repliziert
+ nur diese
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Self-Healing
+\end_layout
+
+\begin_layout Block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{Checksummen und Parität}
+\end_layout
+
+\end_inset
+
+ Für jeden geschriebenen Block wird in den Metadaten eine Checksumme abgelegt.
+ Anhand der Checksumme können gelesene Datenblöck validiert werden.
+ Im Fehlerfall kann der Block aus der Parität neu gerechnet werden.
+\begin_inset Newline newline
+\end_inset
+
+Traditionelle RAID Systeme können dies nicht bieten.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Subsection
+Administration
+\end_layout
+
+\begin_layout BeginFrame
+Sicht des Benutzers (Datasets)
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+zpool create mypool raidz c0t0d0 c0t1d0 c0t2d0
+\begin_inset Newline newline
+\end_inset
+
+zfs create mypool/home
+\begin_inset Newline newline
+\end_inset
+
+zfs set mountpoint=/export/home
+\begin_inset Newline newline
+\end_inset
+
+zfs set reservation=50G
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+zfs set quota=150G
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Sicht des Benutzers (Volumes)
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+zfs create -v 80G mypool/vm-storage-1
+\end_layout
+
+\begin_layout Standard
+Ergebnis: 80GB ZFS Volume in 
+\family typewriter
+/dev/zvol/dsk/vm-storage-1
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Sicht des Benutzers (Informationen)
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+zfs list -ospace
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+Liste der ZFS Datasets und Volumes mit Informationen über den Speicherverbrauch
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+zpool iostat mypool 1
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+Sekündlich aktualisierte Statistik über den Durchsatz
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+ZFS Advanced
+\end_layout
+
+\begin_layout Itemize
+ZFS Snapshots von datasets und volumes
+\end_layout
+
+\begin_layout Itemize
+ZFS send/receive um datasets und volumes über pool-Grenzen hinweg zu replizieren
+\end_layout
+
+\begin_layout Itemize
+Seperate log-device für ZIL (ZFS Intention log)
+\begin_inset Newline newline
+\end_inset
+
+Kann write performance verbessern
+\end_layout
+
+\begin_layout Itemize
+Seperate cache-device (z.B.
+ SSD)
+\begin_inset Newline newline
+\end_inset
+
+Verbessert read performance (Latenz)
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Section
+iSCSI/COMSTAR
+\end_layout
+
+\begin_layout Subsection
+Übersicht
+\end_layout
+
+\begin_layout BeginFrame
+iSCSI
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Itemize
+RFC 3720: Internet Small Computer Systems Interface (iSCSI)
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://tools.ietf.org/html/rfc3720"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Gleiche Begriffe wie bei SCSI (
+\begin_inset Quotes fld
+\end_inset
+
+Initiator
+\begin_inset Quotes frd
+\end_inset
+
+ und 
+\begin_inset Quotes fld
+\end_inset
+
+Target
+\begin_inset Quotes frd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+CHAP Authentifizierung sonst keine Sicherheit
+\begin_inset Newline newline
+\end_inset
+
+=> Unbedingt getrenntes Storage Netz verwenden
+\end_layout
+
+\begin_layout Subsection
+Opensolaris / Nexenta
+\end_layout
+
+\begin_layout BeginFrame
+COMSTAR
+\end_layout
+
+\begin_layout Itemize
+Common Multiprotocol SCSI Target
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://hub.opensolaris.org/bin/view/Project+comstar/"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Komponenten:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+SCSI Target Mode Framework (
+\family typewriter
+stmfadm
+\family default
+)
+\end_layout
+
+\begin_layout Itemize
+Logical Unit Provider (
+\family typewriter
+sbdadm
+\family default
+)
+\end_layout
+
+\begin_layout Itemize
+Port Provider (
+\family typewriter
+itadm
+\family default
+)
+\end_layout
+
+\end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Performance
+\end_layout
+
+\begin_layout Block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{Die Kunst der Optimierung}
+\end_layout
+
+\end_inset
+
+Schätzen, Messen, Kontrollieren!
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Performance 2
+\end_layout
+
+\begin_layout Itemize
+iozone Filesystem Benchmark: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.iozone.org/"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Ethernet: Jumbo Frames aktivieren
+\end_layout
+
+\begin_layout Itemize
+TCP Window Scaling
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Referenzen
+\end_layout
+
+\begin_layout BeginFrame
+Links
+\end_layout
+
+\begin_layout Itemize
+From BFS to ZFS: past, present, and future of file systems
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://arstechnica.com/hardware/news/2008/03/past-present-future-file-systems.ars"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+FAT32 Performance Tradeoff: FAT32 Cluster Sizes and FAT Sizes
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.pcguide.com/ref/hdd/file/partFAT32-c.html "
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+BAARF: Battle Against Any RAID Five (Four, Three).
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.miracleas.com/BAARF/BAARF2.html"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Jeff Bonwick: RAID-Z
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://blogs.sun.com/bonwick/entry/raid_z"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Sun BigAdmin ZFS Overwiev and Guide
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.sun.com/bigadmin/features/articles/zfs_overview.jsp"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+More Links
+\end_layout
+
+\begin_layout Itemize
+Solaris Internals: ZFS Best Practices
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.solarisinternals.com/wiki/index.php/ZFS_Best_Practices_Guide"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Solaris Internals: ZFS Evil Tuning Guide
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.solarisinternals.com/wiki/index.php/ZFS_Evil_Tuning_Guide"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Brendan Gregg: ZFS Second Level ARC (L2ARC):
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://blogs.sun.com/brendan/entry/test"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\end_body
+\end_document
