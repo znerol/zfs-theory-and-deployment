@@ -1,4 +1,4 @@
-#LyX 1.6.6 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -157,7 +157,11 @@ beamerdefaultoverlayspecification{<+->}
 \end_layout
 
 \begin_layout BeginFrame
-Mein Hintergrund
+Unser Hintergrund
+\end_layout
+
+\begin_layout Standard
+Lorenz Schori
 \end_layout
 
 \begin_layout Itemize
@@ -165,11 +169,27 @@ Teilzeitstudium an der BFH in Biel
 \end_layout
 
 \begin_layout Itemize
-Arbeit für eine Zeitungen als System-Administrator und Supporter
+Arbeit für eine Zeitung als System-Administrator und Supporter
 \end_layout
 
 \begin_layout Itemize
 Entwickeln und verbessern von FLOSS for fun and profit
+\end_layout
+
+\begin_layout Standard
+Mathieu Simon
+\end_layout
+
+\begin_layout Itemize
+Studium Geschichte & Informatik an der Uni Bern
+\end_layout
+
+\begin_layout Itemize
+Arbeit an einem Gymnasium als System-Administrator
+\end_layout
+
+\begin_layout Itemize
+Verbessern und promoten von FLOSS for fun und @work / @edu
 \end_layout
 
 \begin_layout EndFrame
@@ -918,6 +938,57 @@ TCP Window Scaling
 
 \end_layout
 
+\begin_layout BeginFrame
+Wo ist vorhanden ZFS?
+\end_layout
+
+\begin_layout Itemize
+OpenSolaris (/ Solaris)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+snv134b: zPool 22 / ZFS 4
+\end_layout
+
+\begin_layout Itemize
+Keine bi-weekly binärbuilds seit 134b
+\end_layout
+
+\begin_layout Itemize
+Oracle? - Null Kommunikation aber neue Quellen (snv144)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Nexenta Core Platform
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+OpenSolaris + Ubuntu hardy + apt
+\end_layout
+
+\begin_layout Itemize
+@3.0 RC2: snv134b + viele Backports
+\end_layout
+
+\begin_layout Itemize
+zPool 26 / ZFS 5 (Div.
+ Bugs aus snv137+)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+FreeBSD 8.0
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+zPool 14
+\end_layout
+
+\end_deeper
 \begin_layout Section
 \start_of_appendix
 Referenzen
