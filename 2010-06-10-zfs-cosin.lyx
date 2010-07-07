@@ -1,4 +1,4 @@
-#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.6 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -201,15 +201,60 @@ Einführung
 \end_layout
 
 \begin_layout Subsection
-Von FAT bis NTFS
+Dateisysteme
 \end_layout
 
 \begin_layout BeginFrame
-FAT - File Allocation Table
+Die Aufgabe eines Dateisystems
+\end_layout
+
+\begin_layout Block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{Aufgabe eines Dateisystems}
+\end_layout
+
+\end_inset
+
+Zuordnen von Massenspeicher zu Benutzerdaten (Inhalt von Dateien) und Metadaten
+ (Verzeichnisstruktur, Dateinamen, Zugriffsberechtigungen, Datumsangaben)
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Wichtige Parameter von Dateisystemen
 \end_layout
 
 \begin_layout Itemize
-FAT-12: 12 Bit Addressing, mit 8KB cluster max 32MB.
+Blockgrösse / Clustergrösse.
+ Früher Blockgrösse == Sektorgrösse == 512 Bytes.
+ Heute 1k - 8k
+\end_layout
+
+\begin_layout Itemize
+Strukturen zur Verwaltung von freien und verwendeten Blöcken
+\end_layout
+
+\begin_layout Itemize
+Aktive Daten im RAM
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Windows: FAT - File Allocation Table
+\end_layout
+
+\begin_layout Itemize
+FAT-12: 12 Bit Addressing, mit 4KB cluster max 16MB.
  Ausreichend für Floppy Disks, keine Verzeichnisstruktur
 \end_layout
 
@@ -218,13 +263,13 @@ FAT-12: 12 Bit Addressing, mit 8KB cluster max 32MB.
 \end_layout
 
 \begin_layout Itemize
-1995 FAT-32: cluster zwischen 4KB und 32KB.
+1995 FAT-32: cluster zwischen 4KB und 32KB, max 2TB.
  VFAT: Workarond für lange Dateinamen
 \end_layout
 
 \begin_layout Itemize
-Probleme: Fragmentierung, File Allocation Table, Ineffiziente Nutzung des
- Speichers
+Probleme: Fragmentierung, File Allocation Table im RAM, Ineffiziente Nutzung
+ des Speicherplatzes
 \end_layout
 
 \begin_layout EndFrame
@@ -232,7 +277,7 @@ Probleme: Fragmentierung, File Allocation Table, Ineffiziente Nutzung des
 \end_layout
 
 \begin_layout BeginFrame
-NTFS
+Windows: NTFS
 \end_layout
 
 \begin_layout Itemize
@@ -240,7 +285,7 @@ NTFS
 \end_layout
 
 \begin_layout Itemize
-64-Bit Filesystem (max Volumegrösse 16 Exabytes), 4KB Cluster
+64-Bit Filesystem (max Volumegrösse 16 Exabytes), 1KB - 4KB Cluster
 \end_layout
 
 \begin_layout Itemize
@@ -253,7 +298,7 @@ NTFS 3.0 (W2K): Indexed metadata search, disk encryption, quotas
 
 \begin_layout Itemize
 Fragmentierung ist kaum ein Problem (höchstens bei MFT), weil Blöcke intelligent
-er alloziert werden
+er alloziert werden (Extends)
 \end_layout
 
 \begin_layout EndFrame
@@ -261,21 +306,96 @@ er alloziert werden
 \end_layout
 
 \begin_layout BeginFrame
-Was will man mehr?
+Unix Filesysteme
 \end_layout
 
-\begin_layout Block
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
+\begin_layout Itemize
+UFS: Simples Design: Boot block, Superblock, i-node blocks, datenblocks.
+ Blockgrösse = Sektorgrösse.
 \end_layout
 
+\begin_layout Itemize
+BSD FFS: Aufteilung der Disk in cylinder groups: i-node blocks näher bei
+ Daten.
+ 8K Block Suballocation.
+\end_layout
+
+\begin_layout Itemize
+Viele Varianten und Erweiterungen in Solaris, OpenBSD, FreeBSD und NetBSD
+ wie Extends, Journaling und Snapshots, 64-Bit Block-Adressierung etc.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Linux / ExtX
+\end_layout
+
+\begin_layout Itemize
+Ext2: Abkömmling von Minix Dateisystem, sehr ähnlich wie FFS.
+ Aufteilung der Disk in block groups unabhängig von der Disk Geometrie
+\end_layout
+
+\begin_layout Itemize
+Ext3: Journal, HTree indizierte Verzeichnisse
+\end_layout
+
+\begin_layout Itemize
+Ext4: Extends, Volumegrösse bis zu 1 Exbibyte, 48-bit Blockadressen, schneller
+ fsck, etc.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+B-Tree Filesysteme
+\end_layout
+
+\begin_layout Itemize
+XFS, JFS, ReiserFS: Binary Tree basierte Journaling Filesysteme
+\end_layout
+
+\begin_layout Itemize
+Btrfs: B-Tree, Journaling, Copy-on-write, Snapshots, Subvolumes, Object-level
+ mirroring und striping
+\begin_inset Newline newline
 \end_inset
 
-Was will man mehr als NTFS?
+Funktionsumfang sehr ähnlich wie ZFS aber mit GPL Lizenz.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Entwicklungen
+\end_layout
+
+\begin_layout Itemize
+Blockgrösse: klein = gut für viele kleine Dateien, gross = gut für grosse
+ Platten und grosse Files.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Optimierung mittels Suballocation oder Extends (Adressierung von Reihen
+ aufeinanderfolgender Blocks).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Cache im RAM: Beschleunigung von Lesezugriffen, Zusammenfassen von Schreibvorgän
+gen
+\end_layout
+
+\begin_layout Itemize
+Journal / Intend Log: Schutz vor Inkonsistenz des Dateisystems nach Crash.
+ Kein Schutz vor Datenverlust!
 \end_layout
 
 \begin_layout EndFrame
@@ -301,11 +421,15 @@ status open
 
 \end_inset
 
- Reduntant Array of I* Disks
+ Redundant Array of I* Disks
 \begin_inset Newline newline
 \end_inset
 
 Beliebte Konfigurationen: (0,) 1, 5, 10
+\end_layout
+
+\begin_layout EndFrame
+
 \end_layout
 
 \begin_layout BeginFrame
@@ -412,6 +536,10 @@ Kapazität =
 
 \end_layout
 
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout BeginFrame
 RAID 5: Write Hole
 \end_layout
@@ -470,6 +598,10 @@ Dieser Mechanismus führt zu massiven Performance-Einbussen bei Random-Writes
  (Datenbanken).
 \end_layout
 
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout BeginFrame
 RAID 5: Performance nach Ausfall
 \end_layout
@@ -486,6 +618,10 @@ Dies führt zu höherer Festplattenaktivität und erhöht das Risiko eines weite
 
 \begin_layout Itemize
 Ein Rebuild unter Last erhöht dieses Risiko weiter
+\end_layout
+
+\begin_layout EndFrame
+
 \end_layout
 
 \begin_layout BeginFrame
@@ -506,22 +642,8 @@ status open
 Safety, performance, cost effectiveness - pick any two of them
 \end_layout
 
-\begin_layout BeginFrame
-Partitionen vs.
- Volumes
-\end_layout
+\begin_layout EndFrame
 
-\begin_layout Itemize
-Früher wurde Partitioniert um die Filesysteme zu zämen (vgl.
- FAT cluster size)
-\end_layout
-
-\begin_layout Itemize
-Heute gibt nur noch wenige Gründe für klassische Partitionen
-\end_layout
-
-\begin_layout Itemize
-Logical Volume Management für flexible VM und Storage Lösungen
 \end_layout
 
 \begin_layout Section
