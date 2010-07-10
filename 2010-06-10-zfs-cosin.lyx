@@ -233,10 +233,18 @@ Wichtige Parameter von Dateisystemen
 
 \begin_layout Itemize
 Blockgrösse / Clustergrösse.
- Früher Blockgrösse == Sektorgrösse == 512 Bytes.
- Heute 1k - 8k
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Ursprünglich Blockgrösse == Sektorgrösse == 512 Bytes
+\end_layout
+
+\begin_layout Itemize
+Heute 1k - 8k
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 Strukturen zur Verwaltung von freien und verwendeten Blöcken
 \end_layout
@@ -315,14 +323,14 @@ UFS: Simples Design: Boot block, Superblock, i-node blocks, datenblocks.
 \end_layout
 
 \begin_layout Itemize
-BSD FFS: Aufteilung der Disk in cylinder groups: i-node blocks näher bei
- Daten.
+FFS: Aufteilung der Disk in cylinder groups: i-node blocks näher bei Daten.
  8K Block Suballocation.
 \end_layout
 
 \begin_layout Itemize
-Viele Varianten und Erweiterungen in Solaris, OpenBSD, FreeBSD und NetBSD
- wie Extends, Journaling und Snapshots, 64-Bit Block-Adressierung etc.
+Viele Varianten und Erweiterungen in (Open-)Solaris, OpenBSD, FreeBSD und
+ NetBSD wie Extends, Journaling und Snapshots, 64-Bit Block-Adressierung
+ etc.
 \end_layout
 
 \begin_layout EndFrame
