@@ -1,4 +1,4 @@
-#LyX 1.6.6 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -903,8 +903,160 @@ Verbessert read performance (Latenz)
 
 \end_layout
 
+\begin_layout BeginFrame
+Wo ist ZFS vorhanden?
+\end_layout
+
+\begin_layout Itemize
+OpenSolaris (Solaris)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+snv134: zPool 22 / ZFS 4
+\end_layout
+
+\begin_layout Itemize
+Keine bi-weekly binärbuilds seit 134b
+\end_layout
+
+\begin_layout Itemize
+Oracle? - Null Kommunikation aber neue Quellen (snv144)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+FreeBSD
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+8.0 stable: zPool 14
+\end_layout
+
+\begin_layout Itemize
+Auch in: ZenaVault, FreeNAS, Debian/kFreeBSD?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Nexenta Core Platform
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+OpenSolaris + apt + Ubuntu hardy
+\end_layout
+
+\begin_layout Itemize
+@3.0 RC2: snv134b + viele Backports
+\end_layout
+
+\begin_layout Itemize
+zPool 26 / ZFS 5 (Div.
+ Bugs aus snv137+)
+\end_layout
+
+\end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+ZFS aktuell?
+\end_layout
+
+\begin_layout Itemize
+Oracle - leider zugeknöpft, wohin geht die Fahrt?
+\end_layout
+
+\begin_layout Itemize
+Netapp vs.
+ Oracle-Sun: Offen, eher zu gunsten Oracle
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Diese Woche
+\emph default
+: Netapp 'cease-and-desist' @ Coraid
+\end_layout
+
+\begin_layout Itemize
+Trotzdem: Business scheint zu laufen:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Nexenta(Stor): Geschäfft brummt
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Jung:
+\emph default
+ ZenaVault: FreeBSD OSS ZFS Appliance
+\end_layout
+
+\end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+In der Praxis
+\end_layout
+
+\begin_layout Itemize
+Günstig (günstiger):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Günstigster Einstieg: LSI 1068e HBA von SuperMicro (200.-)
+\end_layout
+
+\begin_layout Itemize
+Dadurch flexibler: Neuer HBA + 
+\family typewriter
+'zpool import mypool'
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Hybrid Storage Pools (L2ARC)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Leseturbo auch mit MLC SSD's möglich.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Trotzdem: 
+\begin_inset Quotes fld
+\end_inset
+
+You get what you pay for
+\begin_inset Quotes frd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Spart nicht am falschen Ende, ZFS kann auch nicht Zaubern!
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout Section
-iSCSI/COMSTAR
+Anwendungszwecke
 \end_layout
 
 \begin_layout Subsection
@@ -912,109 +1064,17 @@ iSCSI/COMSTAR
 \end_layout
 
 \begin_layout BeginFrame
-iSCSI
-\end_layout
-
-\begin_layout EndFrame
-
+2-Tier Storage iSCSI/FC/Infiniband
 \end_layout
 
 \begin_layout Itemize
-RFC 3720: Internet Small Computer Systems Interface (iSCSI)
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-target "http://tools.ietf.org/html/rfc3720"
-
-\end_inset
-
-
+COMSTAR - Common Multiprotocol SCSI Target
 \end_layout
 
 \begin_layout Itemize
-Gleiche Begriffe wie bei SCSI (
-\begin_inset Quotes fld
-\end_inset
-
-Initiator
-\begin_inset Quotes frd
-\end_inset
-
- und 
-\begin_inset Quotes fld
-\end_inset
-
-Target
-\begin_inset Quotes frd
-\end_inset
-
-)
+NFS / CIFS
 \end_layout
 
-\begin_layout Itemize
-CHAP Authentifizierung sonst keine Sicherheit
-\begin_inset Newline newline
-\end_inset
-
-=> Unbedingt getrenntes Storage Netz verwenden
-\end_layout
-
-\begin_layout Subsection
-Opensolaris / Nexenta
-\end_layout
-
-\begin_layout BeginFrame
-COMSTAR
-\end_layout
-
-\begin_layout Itemize
-Common Multiprotocol SCSI Target
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-target "http://hub.opensolaris.org/bin/view/Project+comstar/"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Komponenten:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-SCSI Target Mode Framework (
-\family typewriter
-stmfadm
-\family default
-)
-\end_layout
-
-\begin_layout Itemize
-Logical Unit Provider (
-\family typewriter
-sbdadm
-\family default
-)
-\end_layout
-
-\begin_layout Itemize
-Port Provider (
-\family typewriter
-itadm
-\family default
-)
-\end_layout
-
-\end_deeper
 \begin_layout EndFrame
 
 \end_layout
@@ -1057,6 +1117,11 @@ target "http://www.iozone.org/"
 \end_layout
 
 \begin_layout Itemize
+iSCSI
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
 Ethernet: Jumbo Frames aktivieren
 \end_layout
 
@@ -1064,61 +1129,11 @@ Ethernet: Jumbo Frames aktivieren
 TCP Window Scaling
 \end_layout
 
+\end_deeper
 \begin_layout EndFrame
 
 \end_layout
 
-\begin_layout BeginFrame
-Wo ist vorhanden ZFS?
-\end_layout
-
-\begin_layout Itemize
-OpenSolaris (/ Solaris)
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-snv134b: zPool 22 / ZFS 4
-\end_layout
-
-\begin_layout Itemize
-Keine bi-weekly binärbuilds seit 134b
-\end_layout
-
-\begin_layout Itemize
-Oracle? - Null Kommunikation aber neue Quellen (snv144)
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Nexenta Core Platform
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-OpenSolaris + Ubuntu hardy + apt
-\end_layout
-
-\begin_layout Itemize
-@3.0 RC2: snv134b + viele Backports
-\end_layout
-
-\begin_layout Itemize
-zPool 26 / ZFS 5 (Div.
- Bugs aus snv137+)
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-FreeBSD 8.0
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-zPool 14
-\end_layout
-
-\end_deeper
 \begin_layout Section
 \start_of_appendix
 Referenzen
