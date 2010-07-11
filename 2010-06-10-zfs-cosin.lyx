@@ -189,7 +189,7 @@ Arbeit an einem Gymnasium als System-Administrator
 \end_layout
 
 \begin_layout Itemize
-Verbessern und promoten von FLOSS for fun und @work / @edu
+Verbessern und promoten von FLOSS for fun und work/edu
 \end_layout
 
 \begin_layout EndFrame
@@ -306,7 +306,7 @@ NTFS 3.0 (W2K): Indexed metadata search, disk encryption, quotas
 
 \begin_layout Itemize
 Fragmentierung ist kaum ein Problem (höchstens bei MFT), weil Blöcke intelligent
-er alloziert werden (Extends)
+er alloziert werden (Extents)
 \end_layout
 
 \begin_layout EndFrame
@@ -351,7 +351,7 @@ Ext3: Journal, HTree indizierte Verzeichnisse
 \end_layout
 
 \begin_layout Itemize
-Ext4: Extends, Volumegrösse bis zu 1 Exbibyte, 48-bit Blockadressen, schneller
+Ext4: Extents, Volumegrösse bis zu 1 Exbibyte, 48-bit Blockadressen, schneller
  fsck, etc.
 \end_layout
 
@@ -391,7 +391,7 @@ Blockgrösse: klein = gut für viele kleine Dateien, gross = gut für grosse
 
 \begin_deeper
 \begin_layout Itemize
-Optimierung mittels Suballocation oder Extends (Adressierung von Reihen
+Optimierung mittels Suballocation oder Extents (Adressierung von Reihen
  aufeinanderfolgender Blocks).
 \end_layout
 
@@ -801,17 +801,17 @@ zfs create mypool/home
 \begin_inset Newline newline
 \end_inset
 
-zfs set mountpoint=/export/home
+zfs set mountpoint=/export/home mypool/home
 \begin_inset Newline newline
 \end_inset
 
-zfs set reservation=50G
+zfs set reservation=50G mypool/home
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-zfs set quota=150G
+zfs set quota=150G mypool/home
 \end_layout
 
 \begin_layout EndFrame
