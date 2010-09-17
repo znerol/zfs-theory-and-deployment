@@ -69,8 +69,8 @@ Lorenz Schori und Mathieu Simon
 \end_layout
 
 \begin_layout Date
-Cosin, 10.
- Juni 2010
+0sec, 15.-17.
+ Oktober 2010
 \end_layout
 
 \begin_layout Standard
@@ -908,53 +908,40 @@ Wo ist ZFS vorhanden?
 \end_layout
 
 \begin_layout Itemize
-OpenSolaris (Solaris)
+Oracle Solaris (k.
+ OpenSolaris)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-snv134: zPool 22 / ZFS 4
+Solaris 10 (zpool 14)
 \end_layout
 
 \begin_layout Itemize
-Keine bi-weekly binärbuilds seit 134b
-\end_layout
-
-\begin_layout Itemize
-Oracle? - Null Kommunikation aber neue Quellen (snv144)
+Express Edition als binary-only preview von Solaris 11 geplant
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+OpenSolaris & OS / Net Community-Projekt
+\end_layout
+
 \begin_layout Itemize
 FreeBSD
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-8.0 stable: zPool 14
+8.1 stable: zPool 15
 \end_layout
 
 \begin_layout Itemize
-Auch in: ZenaVault, FreeNAS, Debian/kFreeBSD?
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Nexenta Core Platform
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-OpenSolaris + apt + Ubuntu hardy
+Patchset zPool 28 (testing!) (http://unix.derkeiler.com/Mailing-Lists/FreeBSD/curr
+ent/2010-09/msg00000.html)
 \end_layout
 
 \begin_layout Itemize
-@3.0 RC2: snv134b + viele Backports
-\end_layout
-
-\begin_layout Itemize
-zPool 26 / ZFS 5 (Div.
- Bugs aus snv137+)
+Auch in: ZenaVault, FreeNAS, Debian/kFreeBSD
 \end_layout
 
 \end_deeper
@@ -967,37 +954,41 @@ ZFS aktuell?
 \end_layout
 
 \begin_layout Itemize
-Oracle - leider zugeknöpft, wohin geht die Fahrt?
+OpenSolaris ist tot.
+ Oracle gibt CDDL-Sourcen nur nach Major Releases frei (vielleicht?)
 \end_layout
 
 \begin_layout Itemize
 Netapp vs.
- Oracle-Sun: Offen, eher zu gunsten Oracle
+ Oracle-Sun: WAFL vs.
+ ZFS Patentstreit beendet, Abkommen geheim.
 \end_layout
 
 \begin_layout Itemize
-
-\emph on
-Diese Woche
-\emph default
-: Netapp 'cease-and-desist' @ Coraid
-\end_layout
-
-\begin_layout Itemize
-Trotzdem: Business scheint zu laufen:
+Ausserhalb Oracle: Community + Firmen:
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Nexenta(Stor): Geschäfft brummt
+IllumOS Foundation: Entwicklung OS / Net (Aktuell: closed source Reste ersetzen)
 \end_layout
 
 \begin_layout Itemize
+OpenIndiana: Distro der Community auf Basis IllumOS
+\end_layout
 
-\emph on
-Jung:
-\emph default
- ZenaVault: FreeBSD OSS ZFS Appliance
+\end_deeper
+\begin_layout Itemize
+Kommerziell ausserhalb Oracle:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Nexenta(Stor): Core ON Distro + GNU + APT + Appliance Web-UI
+\end_layout
+
+\begin_layout Itemize
+ZenaVault: FreeBSD OSS ZFS Appliance
 \end_layout
 
 \end_deeper
@@ -1031,7 +1022,8 @@ Hybrid Storage Pools (L2ARC)
 
 \begin_deeper
 \begin_layout Itemize
-Leseturbo auch mit MLC SSD's möglich.
+Zus.
+ Read-Cache auch mit MLC SSD's möglich.
 \end_layout
 
 \end_deeper
