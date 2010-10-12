@@ -1,4 +1,4 @@
-#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.5 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -402,7 +402,7 @@ gen
 \end_layout
 
 \begin_layout Itemize
-Journal / Intend Log: Schutz vor Inkonsistenz des Dateisystems nach Crash.
+Journal / Intent Log: Schutz vor Inkonsistenz des Dateisystems nach Crash.
  Kein Schutz vor Datenverlust!
 \end_layout
 
@@ -490,10 +490,6 @@ Striping, keine Parität, Redundanz durch Spiegelung der Daten
 
 \begin_layout Itemize
 Normalerweise 4 Disks: 1 x RAID 0 auf der Basis von N x RAID 1
-\end_layout
-
-\begin_layout Itemize
-Linux MD RAID 10 operiert auch mit 2 Disks
 \end_layout
 
 \begin_layout Itemize
@@ -699,7 +695,7 @@ Redundanz: mirror, raidz, raidz2, raidz3
 \end_layout
 
 \begin_layout Itemize
-Kompression und Deduplizierung
+Kompression und Deduplizierung (ZFS Crypto in snv_148)
 \end_layout
 
 \begin_layout EndFrame
@@ -891,12 +887,35 @@ Kann write performance verbessern
 \end_layout
 
 \begin_layout Itemize
-Seperate cache-device (z.B.
+Seperate cache-device L2ARC (z.B.
  SSD)
 \begin_inset Newline newline
 \end_inset
 
 Verbessert read performance (Latenz)
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+ZDB
+\end_layout
+
+\begin_layout Standard
+Aus man zdb:
+\end_layout
+
+\begin_layout Quote
+The zdb command is used by support engineers to diagnose failures and gather
+ statistics.
+ Since the ZFS file system is always consistent on disk and is self-repairing,
+ zdb should only be run under the direction by a support engineer.
+\end_layout
+
+\begin_layout Itemize
+Wie kann man das nicht als Einladung verstehen?
 \end_layout
 
 \begin_layout EndFrame
