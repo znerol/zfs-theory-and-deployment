@@ -675,11 +675,42 @@ zpool
 \end_layout
 
 \begin_layout Itemize
-Schicht 2: DPM (Data Management Unit): Transactional object store
+Schicht 2: DMU (Data Management Unit): Transactional object store
 \end_layout
 
 \begin_layout Itemize
 Schicht 3: ZPL (ZFS Posix Layer): Mapping von Dateinamen/Atttributen
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+3 Schichten (Grafisch)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename zfstour.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size scriptsize
+Source: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://hub.opensolaris.org/bin/view/Community+Group+zfs/source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout EndFrame
@@ -1307,6 +1338,23 @@ Brendan Gregg: ZFS Second Level ARC (L2ARC):
 \begin_inset CommandInset href
 LatexCommand href
 target "http://blogs.sun.com/brendan/entry/test"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Opensolaris Hub, ZFS Source Tour
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://hub.opensolaris.org/bin/view/Community+Group+zfs/source"
 
 \end_inset
 
